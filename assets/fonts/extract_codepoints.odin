@@ -32,19 +32,7 @@ font_codepoints :: []rune {`,
 	)
 	for codepoint_triple in strings.split_lines_iterator(&codepoints) {
 		triple := strings.split_after_n(codepoint_triple, " ", 3)
-		if include_codepoint_description {
-			fmt.sbprint(
-				&extracted_codepoints_code,
-				strings.trim_space(triple[1]),
-				"/*",
-				strings.trim_space(triple[0]),
-				strings.trim_space(triple[2]),
-				"*/",
-				", ",
-			)
-		} else {
-			fmt.sbprintf(&extracted_codepoints_code, "%s, ", strings.trim_space(triple[1]))
-		}
+		write_codepoint(&extracted_codepoints_code, triple)
 	}
 	fmt.sbprintln(&extracted_codepoints_code, `
 }
@@ -54,4 +42,18 @@ font_codepoints :: []rune {`,
 
 	output := strings.to_string(extracted_codepoints_code)
 	_nvm := os2.write_entire_file("extracted_codepoints_code.odin", transmute([]u8)output)
+}
+
+write_codepoint :: proc(buf: ^strings.Builder, triple: []string) {
+	if include_codepoint_description {
+		fmt.sbprintf(
+			buf,
+			"%s /* %s %s */, ",
+			strings.trim_space(triple[1]),
+			strings.trim_space(triple[0]),
+			strings.trim_space(triple[2]),
+		)
+	} else {
+		fmt.sbprintf(buf, "%s, ", strings.trim_space(triple[1]))
+	}
 }
