@@ -8,8 +8,9 @@ import "core:strings"
 // Usage:
 // 	make sure you have `otfinfo` installed and available in PATH
 //	cd assets/fonts
-font_path :: "ttyp016-uni.ttf" // Place path to your font
-output_file :: "extracted_codepoints_code.odin" // Optionally rename the output file
+font_path :: "ttyp016-uni.ttf" // Insert your font filename
+include_codepoint_description :: false
+output_file :: "extracted_codepoints_code.odin"
 //	odin run .
 
 
@@ -31,7 +32,11 @@ font_codepoints :: []rune {`,
 	)
 	for codepoint_triple in strings.split_lines_iterator(&codepoints) {
 		triple := strings.split_after_n(codepoint_triple, " ", 3)
-		fmt.sbprint(&extracted_codepoints_code, triple[1], "/*", triple[0], triple[2], "*/", ", ")
+		if include_codepoint_description {
+			fmt.sbprint(&extracted_codepoints_code, triple[1], "/*", triple[0], triple[2], "*/", ", ")
+		} else {
+			fmt.sbprint(&extracted_codepoints_code, triple[1], ", ")
+		}
 	}
 	fmt.sbprintln(&extracted_codepoints_code, `
 }
