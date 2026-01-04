@@ -2,6 +2,8 @@
 
 _Let's become independent from directories around us._
 
+![screenshot](image.png)
+
 To get font codepoints I used `otfinfo` from the `lcdf-typetools`.
 
 ```sh
