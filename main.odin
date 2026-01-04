@@ -2,6 +2,11 @@ package main
 
 import rl "vendor:raylib"
 
+header_font_data :: #load("assets/fonts/Adventure12x24.ttf", []u8)
+header_font_size :: 24
+body_font_data :: #load("assets/fonts/ttyp016-uni.ttf", []u8)
+body_font_size :: 16
+
 WINDOW_MINIMUM_WIDTH :: 480
 WINDOW_MINIMUM_HEIGHT :: 480
 
@@ -72,7 +77,7 @@ main :: proc() {
 			{300, 70},
 			f32(game.body_font.baseSize),
 			0,
-			{255, 245, 233, 190},
+			{255, 245, 233, 255},
 		)
 
 		rl.DrawTextEx(
@@ -89,11 +94,16 @@ main :: proc() {
 }
 
 load_fonts :: proc(game: ^Game) {
+	codepoints: [dynamic]rune
+	for i in 0 ..= 127 {
+		append(&codepoints, rune(i))
+	}
+
 	game.header_font = load_font(
 		header_font_data,
 		header_font_size,
-		raw_data(header_font_codepoints),
-		len(header_font_codepoints),
+		raw_data(codepoints),
+		len(codepoints),
 	)
 	assert(rl.IsFontValid(game.header_font), "Header font is not valid")
 	assert(game.header_font.baseSize != 0, "Header font loading failed")
@@ -101,8 +111,8 @@ load_fonts :: proc(game: ^Game) {
 	game.body_font = load_font(
 		body_font_data,
 		body_font_size,
-		raw_data(body_font_codepoints),
-		len(body_font_codepoints),
+		raw_data(codepoints),
+		len(codepoints),
 	)
 	assert(rl.IsFontValid(game.body_font), "Body font is not valid")
 	assert(game.body_font.baseSize != 0, "Body font loading failed")
