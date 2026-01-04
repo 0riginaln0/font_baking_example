@@ -12,6 +12,7 @@ otfinfo -u ttyp016-uni.ttf
 
 Resources to explore codepoints:
 
+- https://fontdrop.info/
 - https://codepoints.net/
 - https://en.wikipedia.org/wiki/List_of_Unicode_characters
 
