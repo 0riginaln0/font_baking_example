@@ -94,26 +94,11 @@ main :: proc() {
 }
 
 load_fonts :: proc(game: ^Game) {
-	codepoints: [dynamic]rune
-	for i in 0 ..= 127 {
-		append(&codepoints, rune(i))
-	}
-
-	game.header_font = load_font(
-		header_font_data,
-		header_font_size,
-		raw_data(codepoints),
-		len(codepoints),
-	)
+	game.header_font = load_font(header_font_data, header_font_size)
 	assert(rl.IsFontValid(game.header_font), "Header font is not valid")
 	assert(game.header_font.baseSize != 0, "Header font loading failed")
 
-	game.body_font = load_font(
-		body_font_data,
-		body_font_size,
-		raw_data(codepoints),
-		len(codepoints),
-	)
+	game.body_font = load_font(body_font_data, body_font_size)
 	assert(rl.IsFontValid(game.body_font), "Body font is not valid")
 	assert(game.body_font.baseSize != 0, "Body font loading failed")
 }
