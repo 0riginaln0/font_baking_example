@@ -10,6 +10,9 @@ To get font codepoints I used `otfinfo` from the `lcdf-typetools`.
 otfinfo -u ttyp016-uni.ttf
 ```
 
-This site is useful fore exploring codepoints: https://codepoints.net/
+Resources to explore codepoints:
+
+- https://codepoints.net/
+- https://en.wikipedia.org/wiki/List_of_Unicode_characters
 
 The cake was taken from https://asciiart.website/art/4895
