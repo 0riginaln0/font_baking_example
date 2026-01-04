@@ -33,9 +33,17 @@ font_codepoints :: []rune {`,
 	for codepoint_triple in strings.split_lines_iterator(&codepoints) {
 		triple := strings.split_after_n(codepoint_triple, " ", 3)
 		if include_codepoint_description {
-			fmt.sbprint(&extracted_codepoints_code, triple[1], "/*", triple[0], triple[2], "*/", ", ")
+			fmt.sbprint(
+				&extracted_codepoints_code,
+				strings.trim_space(triple[1]),
+				"/*",
+				strings.trim_space(triple[0]),
+				strings.trim_space(triple[2]),
+				"*/",
+				", ",
+			)
 		} else {
-			fmt.sbprint(&extracted_codepoints_code, triple[1], ", ")
+			fmt.sbprintf(&extracted_codepoints_code, "%s, ", strings.trim_space(triple[1]))
 		}
 	}
 	fmt.sbprintln(&extracted_codepoints_code, `
