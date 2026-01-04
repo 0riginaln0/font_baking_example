@@ -1,6 +1,6 @@
-# Font baking example with Odin and Raylib
+# Font baking example in Odin and Raylib
 
-Let's become independent from directories around us
+_Let's become independent from directories around us._
 
 To get font codepoints I used `otfinfo` from the `lcdf-typetools`.
 
